@@ -11,17 +11,9 @@ func callbackMap(cfg *config) error {
 		return err
 	}
 
-	if cfg.nextLocationAreaURL != nil {
-		fmt.Println(*cfg.nextLocationAreaURL)
-	}
-
 	for _, area := range response.Results {
 		fmt.Printf(" - %s \n", area.Name)
 	}
-
-	// fmt.Println(*response.Next)
-	// fmt.Println(*response.Previous)
-	// fmt.Println(cfg.nextLocationAreaURL)
 
 	cfg.nextLocationAreaURL = response.Next
 	cfg.previousLocationAreaURL = response.Previous
@@ -39,17 +31,9 @@ func callbackMapb(cfg *config) error {
 		return err
 	}
 
-	if cfg.previousLocationAreaURL != nil {
-		fmt.Println(*cfg.previousLocationAreaURL)
-	}
-
 	for _, area := range response.Results {
 		fmt.Printf(" - %s \n", area.Name)
 	}
-
-	// fmt.Println(response.Next)
-	// fmt.Println(response.Previous)
-	// fmt.Println(cfg.nextLocationAreaURL)
 
 	cfg.nextLocationAreaURL = response.Next
 	cfg.previousLocationAreaURL = response.Previous

@@ -8,11 +8,21 @@ import (
 )
 
 func (c *Client) ListLocationAreas(pageURL *string) (LocationAreaResponse, error) {
-	endPoint := "/location-area"
+	endPoint := "/location-area?offset=0&limit=20"
 	fullURL := baseURL + endPoint
 
 	if pageURL != nil {
 		fullURL = *pageURL
+	}
+
+	fmt.Println(fullURL)
+	fmt.Println()
+
+	rawData, ok := c.cahce.Get(fullURL)
+	if ok {
+		locationAreaResponse := LocationAreaResponse{}
+		json.Unmarshal(rawData, &locationAreaResponse)
+		return locationAreaResponse, nil
 	}
 
 	req, err := http.NewRequest("GET", fullURL, nil)
@@ -30,16 +40,18 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreaResponse, error
 		return LocationAreaResponse{}, fmt.Errorf("bas status code: %v", response.StatusCode)
 	}
 
-	data, err := io.ReadAll(response.Body)
+	rawData, err = io.ReadAll(response.Body)
 	if err != nil {
 		return LocationAreaResponse{}, err
 	}
 
 	locationAreaResponse := LocationAreaResponse{}
-	err = json.Unmarshal(data, &locationAreaResponse)
+	err = json.Unmarshal(rawData, &locationAreaResponse)
 	if err != nil {
 		return LocationAreaResponse{}, err
 	}
+
+	c.cahce.Add(fullURL, rawData)
 
 	return locationAreaResponse, nil
 }
