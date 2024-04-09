@@ -9,8 +9,8 @@ func callbackExplore(cfg *config, params ...string) error {
 	if len(params) == 0 {
 		return errors.New("please provide the name or id of the location")
 	}
-	idOrString := params[0]
-	response, err := cfg.pokeapiClient.GetLocationDetail(idOrString)
+	idOrName := params[0]
+	response, err := cfg.pokeapiClient.GetLocationDetail(idOrName)
 	if err != nil {
 		return err
 	}
