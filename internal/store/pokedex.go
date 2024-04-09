@@ -22,3 +22,13 @@ func (s *Store) Get(name string) (Pokemon, bool) {
 	p, exist := s.pokedex[name]
 	return p, exist
 }
+
+func (s *Store) GetAllPokemonNames() []string {
+	names := make([]string, len(s.pokedex))
+	i := 0
+	for k, _ := range s.pokedex {
+		names[i] = k
+		i++
+	}
+	return names
+}
