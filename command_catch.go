@@ -30,5 +30,7 @@ func callbackCatch(cfg *config, params ...string) error {
 		fmt.Printf("%s escaped! \n", response.Name)
 	}
 
+	fmt.Println("You may now inspect it with the inspect command.")
+
 	return nil
 }
