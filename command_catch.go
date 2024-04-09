@@ -26,11 +26,10 @@ func callbackCatch(cfg *config, params ...string) error {
 	if isCatch {
 		fmt.Printf("%s was caught! \n", response.Name)
 		cfg.store.Add(response.Name, response)
+		fmt.Println("You may now inspect it with the inspect command.")
 	} else {
 		fmt.Printf("%s escaped! \n", response.Name)
 	}
-
-	fmt.Println("You may now inspect it with the inspect command.")
 
 	return nil
 }
