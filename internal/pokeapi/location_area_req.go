@@ -15,9 +15,6 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreaResponse, error
 		fullURL = *pageURL
 	}
 
-	fmt.Println(fullURL)
-	fmt.Println()
-
 	rawData, ok := c.cahce.Get(fullURL)
 	if ok {
 		locationAreaResponse := LocationAreaResponse{}
@@ -37,7 +34,7 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreaResponse, error
 	defer response.Body.Close()
 
 	if response.StatusCode >= 400 {
-		return LocationAreaResponse{}, fmt.Errorf("bas status code: %v", response.StatusCode)
+		return LocationAreaResponse{}, fmt.Errorf("bad status code: %v", response.StatusCode)
 	}
 
 	rawData, err = io.ReadAll(response.Body)
